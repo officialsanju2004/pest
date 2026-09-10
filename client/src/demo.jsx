@@ -142,52 +142,6 @@ const WHY_CHOOSE_US = [
     text: "With full certification, insurance, and a growing base of happy clients, we deliver reliable service you can count on, every time.",
   },
 ];
-/* Floating WhatsApp button — fixed bottom-right, opens a chat with the business number */
-function WhatsAppFloatButton() {
-  return (
-    <a
-      href={WHATSAPP_HREF}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="Chat with us on WhatsApp"
-      className="whatsapp-float fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-xl"
-      style={{ backgroundColor: "#25D366" }}
-    >
-      <span className="whatsapp-pulse" />
-      <svg
-        viewBox="0 0 448 512"
-        width="28"
-        height="28"
-        fill="#ffffff"
-        aria-hidden="true"
-        style={{ position: "relative", zIndex: 1 }}
-      >
-        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-      </svg>
-    </a>
-  );
-}
-const TESTIMONIALS = [
-  {
-    name: "Priya Sharma",
-    location: "Brampton, ON",
-    initials: "PS",
-    text: "Had a bad ant problem in the kitchen and they showed up the same day I called. Treated the whole area and gave us tips to keep them from coming back. Haven't seen a single ant since.",
-  },
-  {
-    name: "Mark Thompson",
-    location: "Mississauga, ON",
-    initials: "MT",
-    text: "We found a wasp nest near the garage and I was worried about the kids getting stung. The team removed it safely and quickly, no mess left behind. Really professional service.",
-  },
-  {
-    name: "Aisha Khan",
-    location: "London, ON",
-    initials: "AK",
-    text: "Dealt with a mouse issue in our basement for weeks before calling PESTEXIT. They sealed the entry points and set traps, and it's been completely pest-free since. Highly recommend.",
-  },
-];
 
 const PROCESS_STEPS = [
   { num: "01", title: "Inspect", icon: Search, text: "We assess your property and identify the problem." },
@@ -195,11 +149,7 @@ const PROCESS_STEPS = [
   { num: "03", title: "Treat", icon: SprayCan, text: "We use safe and effective methods to eliminate pests." },
   { num: "04", title: "Prevent", icon: ShieldCheck, text: "We provide long-term solutions and ongoing monitoring." },
 ];
-/* WhatsApp contact number in international format, no spaces/symbols, used for the wa.me link */
-const WHATSAPP_NUMBER = "17788586004";
-const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hi! I'd like to get a free quote for pest control."
-)}`;
+
 const SERVICE_ZONES = [
   {
     key: "primary",
@@ -286,10 +236,16 @@ const FAQS = [
   },
 ];
 
-const PHONE = "+1 (778) 858-6004";
-const PHONE_HREF = "tel:+17788586004";
-const EMAIL = "info@pestexit-ontario.com";
-// const ADDRESS = "Brampton, Ontario, Canada L6P 1Y7";
+const PHONE = "+1 (437) 329-4500";
+const PHONE_HREF = "tel:+14373294500";
+const EMAIL = "bspestcontrolca@gmail.com";
+const ADDRESS = "Brampton, Ontario, Canada L6P 1Y7";
+
+/* WhatsApp contact number in international format, no spaces/symbols, used for the wa.me link */
+const WHATSAPP_NUMBER = "14373294500";
+const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  "Hi! I'd like to get a free quote for pest control."
+)}`;
 
 /* ---------------------------------------------------------------------- */
 /* Scroll-reveal system                                                    */
@@ -361,6 +317,33 @@ function SectionEyebrow({ children }) {
     <p className="text-sm font-semibold tracking-wide mb-2" style={{ color: COLORS.secondary }}>
       {children}
     </p>
+  );
+}
+
+/* Floating WhatsApp button — fixed bottom-right, opens a chat with the business number */
+function WhatsAppFloatButton() {
+  return (
+    <a
+      href={WHATSAPP_HREF}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      title="Chat with us on WhatsApp"
+      className="whatsapp-float fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-xl"
+      style={{ backgroundColor: "#25D366" }}
+    >
+      <span className="whatsapp-pulse" />
+      <svg
+        viewBox="0 0 448 512"
+        width="28"
+        height="28"
+        fill="#ffffff"
+        aria-hidden="true"
+        style={{ position: "relative", zIndex: 1 }}
+      >
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+      </svg>
+    </a>
   );
 }
 
@@ -448,6 +431,11 @@ export default function BSPestControlSite() {
           from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes whatsappPulse {
+          0% { transform: scale(1); opacity: 0.55; }
+          70% { transform: scale(1.8); opacity: 0; }
+          100% { transform: scale(1.8); opacity: 0; }
+        }
 
         .hero-bg { animation: heroFadeIn 1.4s cubic-bezier(.16,1,.3,1) both; }
         .hero-step { opacity: 0; animation: heroFadeUp .8s cubic-bezier(.16,1,.3,1) both; }
@@ -519,8 +507,25 @@ export default function BSPestControlSite() {
           transform: translateY(-2px);
         }
 
+        /* WhatsApp floating action button */
+        .whatsapp-float {
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .whatsapp-float:hover {
+          transform: scale(1.08);
+          box-shadow: 0 14px 26px -8px rgba(37,211,102,0.55);
+        }
+        .whatsapp-float:active { transform: scale(0.96); }
+        .whatsapp-pulse {
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          background-color: #25D366;
+          animation: whatsappPulse 2.2s ease-out infinite;
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .reveal, .hero-bg, .hero-step, .hero-card, .faq-answer, .menu-drop, .float-badge {
+          .reveal, .hero-bg, .hero-step, .hero-card, .faq-answer, .menu-drop, .float-badge, .whatsapp-pulse {
             animation: none !important;
             transition: none !important;
             opacity: 1 !important;
@@ -533,7 +538,7 @@ export default function BSPestControlSite() {
       {/* Top bar */}
       <div style={{ backgroundColor: COLORS.primary }} className="text-white text-xs">
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-          <p className="hidden sm:block">Serving Homes & Businesses Across Southwestern and Southern Ontario</p>
+          <p className="hidden sm:block">Serving Homes & Businesses Across Ontario</p>
           <div className="flex items-center gap-4">
             <a href={`mailto:${EMAIL}`} className="flex items-center gap-1 hover:text-orange-300 transition-colors">
               <Mail size={14} /> {EMAIL}
@@ -1034,9 +1039,13 @@ export default function BSPestControlSite() {
           <Reveal className="text-center max-w-2xl mx-auto mb-12">
             <SectionEyebrow>Service Areas</SectionEyebrow>
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: COLORS.primary }}>
-              Proudly Serving These Locations <span style={{ color: COLORS.accent }}> and Surrounding Communities</span>
+              Proudly Serving <span style={{ color: COLORS.accent }}>Ontario, Zone by Zone</span>
             </h2>
-           
+            <p className="text-sm">
+              From our home base in London to communities across Southwestern Ontario and beyond, PestExit
+              brings the same reliable, eco-friendly service everywhere we go. Hover a zone below to see the
+              full list of communities — on mobile, just tap.
+            </p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -1064,7 +1073,7 @@ export default function BSPestControlSite() {
                         <Navigation size={18} style={{ color: COLORS.secondary }} />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold tracking-wide" style={{ color: COLORS.accent }}>
+                        <p className="text-xs font-semibold tracking-wide" style={{ color: COLORS.accent }}>
                           {zone.label}
                         </p>
                         <h3 className="font-bold text-base leading-snug" style={{ color: COLORS.primary }}>
@@ -1080,10 +1089,10 @@ export default function BSPestControlSite() {
                     </span>
                   </div>
 
-                  <p className="text-base font-medium mt-4" style={{ color: COLORS.primary }}>
+                  <p className="text-sm font-medium mt-4" style={{ color: COLORS.primary }}>
                     {zone.subtitle}
                   </p>
-                  <p className="text-base mt-1">{zone.text}</p>
+                  <p className="text-sm mt-1">{zone.text}</p>
 
                   <div className="zone-details">
                     <div className="flex flex-wrap gap-2 pt-4 border-t" style={{ borderColor: "#eef1f0" }}>
@@ -1099,7 +1108,7 @@ export default function BSPestControlSite() {
                       ))}
                     </div>
                     {zone.note && (
-                      <p className="text-base mt-3 italic" style={{ color: COLORS.neutral }}>
+                      <p className="text-xs mt-3 italic" style={{ color: COLORS.neutral }}>
                         {zone.note}
                       </p>
                     )}
@@ -1110,55 +1119,52 @@ export default function BSPestControlSite() {
           </div>
 
           <Reveal delay={300} className="flex justify-center mt-10">
-            {/* <Button variant="navy">
+            <Button variant="navy">
               Check If We Service Your Area <ArrowRight size={16} />
-            </Button> */}
+            </Button>
           </Reveal>
         </div>
       </section>
 
-     {/* Testimonials */}
-<section className="py-16" style={{ backgroundColor: COLORS.bg }}>
-  <div className="max-w-7xl mx-auto px-4">
-    <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
-      <div>
-        <SectionEyebrow>What Our Clients Say</SectionEyebrow>
-        <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
-          Trusted by Homeowners &amp; Businesses
-        </h2>
-      </div>
-      {/* <Button variant="navy">View All Reviews</Button> */}
-    </Reveal>
-    <div className="grid sm:grid-cols-3 gap-6">
-      {TESTIMONIALS.map((review, i) => (
-        <Reveal key={review.name} delay={i * 100} className="lift-card bg-white rounded-xl p-6 shadow-sm">
-          <div className="flex gap-1 mb-3">
-            {[...Array(5)].map((_, idx) => (
-              <Star key={idx} size={14} fill={COLORS.accent} style={{ color: COLORS.accent }} />
+      {/* Testimonials — PLACEHOLDER, replace with real client reviews */}
+      <section className="py-16" style={{ backgroundColor: COLORS.bg }}>
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+              <SectionEyebrow>What Our Clients Say</SectionEyebrow>
+              <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
+                Trusted by Homeowners &amp; Businesses
+              </h2>
+            </div>
+            <Button variant="navy">View All Reviews</Button>
+          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <Reveal key={i} delay={i * 100} className="lift-card bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, idx) => (
+                    <Star key={idx} size={14} fill={COLORS.accent} style={{ color: COLORS.accent }} />
+                  ))}
+                </div>
+                <p className="text-sm italic mb-4">
+                  [Add a real customer review here — replace this placeholder before launch.]
+                </p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    style={{ backgroundColor: COLORS.secondary }}
+                  >
+                    CN
+                  </div>
+                  <p className="text-sm font-semibold" style={{ color: COLORS.primary }}>
+                    Client Name
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
-          <p className="text-sm italic mb-4">"{review.text}"</p>
-          <div className="flex items-center gap-3">
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-              style={{ backgroundColor: COLORS.secondary }}
-            >
-              {review.initials}
-            </div>
-            <div>
-              <p className="text-sm font-semibold" style={{ color: COLORS.primary }}>
-                {review.name}
-              </p>
-              <p className="text-xs" style={{ color: COLORS.neutral }}>
-                {review.location}
-              </p>
-            </div>
-          </div>
-        </Reveal>
-      ))}
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* Blog */}
       <section id="blog" className="py-16 bg-white">
@@ -1171,7 +1177,7 @@ export default function BSPestControlSite() {
               </h2>
               <p className="text-sm mt-2">Stay informed with expert tips and the latest updates.</p>
             </div>
-            {/* <Button variant="navy">View All Articles</Button> */}
+            <Button variant="navy">View All Articles</Button>
           </Reveal>
 
           <div className="grid sm:grid-cols-3 gap-6">
@@ -1205,7 +1211,7 @@ export default function BSPestControlSite() {
                 Got Questions? <span style={{ color: COLORS.accent }}>We've Got Answers.</span>
               </h2>
             </div>
-            {/* <Button variant="navy">View All FAQs</Button> */}
+            <Button variant="navy">View All FAQs</Button>
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -1331,9 +1337,9 @@ export default function BSPestControlSite() {
               <li className="flex items-center gap-2">
                 <Mail size={14} /> {EMAIL}
               </li>
-              {/* <li className="flex items-start gap-2">
+              <li className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 shrink-0" /> {ADDRESS}
-              </li> */}
+              </li>
             </ul>
           </div>
         </div>
@@ -1344,6 +1350,7 @@ export default function BSPestControlSite() {
           </p>
         </div>
       </footer>
+
       {/* Floating WhatsApp button — visible on every section */}
       <WhatsAppFloatButton />
     </div>
