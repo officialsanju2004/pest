@@ -30,7 +30,7 @@ import { SERVICES_DATA } from "./data/servicesData";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
-
+import { BLOG_POSTS } from "./data/blogData";
 const WIKI = "https://commons.wikimedia.org/wiki/Special:FilePath/";
 const IMG = {
   hero: WIKI + "A_day_in_the_life-_Pest_Management_Journeyman.jpeg",
@@ -167,23 +167,6 @@ const SERVICE_ZONES = [
   },
 ];
 
-const BLOG_POSTS = [
-  {
-    title: "What Attracts Wasps to Homes and Businesses in Brampton?",
-    excerpt: "A restaurant owner in downtown Brampton called us last July…",
-    img: IMG.blogWasp1,
-  },
-  {
-    title: "How to Keep Wasps Away from Your Garden and Outdoor Areas",
-    excerpt: "You're grilling on a Saturday evening and a wasp starts…",
-    img: IMG.blogWasp2,
-  },
-  {
-    title: "How Rodents Can Damage Your Home and Electrical Wiring",
-    excerpt: "A flickering light that an electrician can't explain. A breaker…",
-    img: IMG.blogRodent,
-  },
-];
 
 const FAQS = [
   {
