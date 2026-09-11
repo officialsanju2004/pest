@@ -1001,43 +1001,44 @@ export default function BSPestControlSite() {
         </div>
       </section>
 
-      {/* Blog */}
-      <section id="blog" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
-            <div>
-              <SectionEyebrow>Our Blog</SectionEyebrow>
-              <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
-                Tips, Guides &amp; <span style={{ color: COLORS.accent }}>Pest Control Advice</span>
-              </h2>
-              <p className="text-sm mt-2">Stay informed with expert tips and the latest updates.</p>
-            </div>
-          </Reveal>
+     {/* Blog */}
+<section id="blog" className="py-16 bg-white">
+  <div className="max-w-7xl mx-auto px-4">
+    <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <div>
+        <SectionEyebrow>Our Blog</SectionEyebrow>
+        <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
+          Tips, Guides &amp; <span style={{ color: COLORS.accent }}>Pest Control Advice</span>
+        </h2>
+        <p className="text-sm mt-2">Stay informed with expert tips and the latest updates.</p>
+      </div>
+    </Reveal>
 
-          <div className="grid sm:grid-cols-3 gap-6">
-            {BLOG_POSTS.map((post, i) => (
-              <Reveal key={post.title} delay={i * 100} className="lift-card rounded-xl overflow-hidden shadow-sm">
-                <div className="img-zoom h-40">
-                  <img src={post.img} alt={post.title} className="w-full h-full object-cover" loading="lazy" />
-                </div>
-                <div className="p-5">
-                  <h4 className="font-bold text-base mb-2 leading-snug" style={{ color: COLORS.primary }}>
-                    {post.title}
-                  </h4>
-                  <p className="text-sm mb-3">{post.excerpt}</p>
-                  <a
-                    href="#"
-                    className="text-xs font-semibold inline-flex items-center gap-1"
-                    style={{ color: COLORS.accent }}
-                  >
-                    Learn more <ArrowRight size={12} />
-                  </a>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="grid sm:grid-cols-3 gap-6">
+      {BLOG_POSTS.map((post, i) => (
+        <Reveal key={post.slug} delay={i * 100} className="lift-card rounded-xl overflow-hidden shadow-sm">
+          <Link to={`/blog/${post.slug}`} className="block">
+            <div className="img-zoom h-40">
+              <img src={post.img} alt={post.title} className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="p-5">
+              <h4 className="font-bold text-base mb-2 leading-snug" style={{ color: COLORS.primary }}>
+                {post.title}
+              </h4>
+              <p className="text-sm mb-3">{post.excerpt}</p>
+              <span
+                className="text-xs font-semibold inline-flex items-center gap-1"
+                style={{ color: COLORS.accent }}
+              >
+                Learn more <ArrowRight size={12} />
+              </span>
+            </div>
+          </Link>
+        </Reveal>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* FAQ */}
       <section className="py-16" style={{ backgroundColor: COLORS.bg }}>

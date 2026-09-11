@@ -51,11 +51,7 @@ export default function AboutPage() {
               to deliver reliable, long-lasting pest solutions for homes and businesses.
             </p>
           </div>
-          <div className="flex justify-center">
-            <div className="bg-white rounded-2xl p-8 shadow-2xl">
-              <img src={logo} alt="PESTEXIT logo" className="h-40 w-auto object-contain" />
-            </div>
-          </div>
+       
         </div>
       </section>
 

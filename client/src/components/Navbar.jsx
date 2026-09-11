@@ -18,7 +18,7 @@ const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "About Us", to: "/about" },
   { label: "Our Services", to: "/#services", hasDropdown: true },
-  { label: "Common Pests", to: "/#pests" },
+ 
   { label: "Service Areas", to: "/#areas" },
   { label: "Blog", to: "/#blog" },
   { label: "Contact", to: "/contact" },

@@ -18,6 +18,8 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/services/:slug" element={<ServicePage />} />
+         <Route path="/blog/:slug" element={<BlogPostPage />} />
+
         <Route path="*" element={<BSPestControlSite />} />
       </Routes>
     </BrowserRouter>
