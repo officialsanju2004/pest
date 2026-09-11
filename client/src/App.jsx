@@ -5,7 +5,8 @@ import BSPestControlSite from "./BSPestControlSite";
 
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
-import ServicePage from "./pages/servicesPage";
+import ServicePage from "./pages/ServicePage";
+
 
 
 
