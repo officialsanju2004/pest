@@ -708,9 +708,7 @@ export default function BSPestControlSite() {
                 We provide customized pest management services for homes, businesses, and industrial properties.
               </p>
             </div>
-            <Link to="/services/ant-extermination">
-              <Button variant="navy">View All Services</Button>
-            </Link>
+           
           </Reveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
