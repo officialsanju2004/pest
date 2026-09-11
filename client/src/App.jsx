@@ -1,43 +1,23 @@
-
-
-
-import "./App.css";
-
-import { createRoot } from "react-dom/client";
-import "./index.css";
-
-import "sweetalert2/src/sweetalert2.scss";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BSPestControlSite from "./BSPestControlSite";
 
 
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import ServicePage from "./pages/servicesPage";
 
 
-
-
-function AppRouter() {
+export default function App() {
   return (
-   <Router>
-    <Routes>
-      <Route path="/" element={<BSPestControlSite/>}/>
-      
-
-
-
- 
-
-
-    </Routes>
-   </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<BSPestControlSite />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/services/:slug" element={<ServicePage />} />
+        <Route path="*" element={<BSPestControlSite />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default AppRouter;
-
-

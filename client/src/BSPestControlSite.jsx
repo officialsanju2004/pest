@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import {
   Phone,
   Mail,
@@ -6,8 +8,6 @@ import {
   Facebook,
   Instagram,
   Linkedin,
-  Menu,
-  X,
   ChevronDown,
   ChevronUp,
   Bug,
@@ -24,39 +24,12 @@ import {
   ClipboardList,
   SprayCan,
   ShieldCheck,
-  Plus,
-  Minus,
   Navigation,
 } from "lucide-react";
-import flea from "../images/flea.png";
-import termite from "../images/termite.png";
-import home from "../images/home.png";
-import bugandinsect from  "../images/bugandinsect.png";
-import bug from "../images/bug.png";
-import logo from "../images/logo.jpeg";
-/**
- * PESTEXIT  — Landing Page
- * Colors:
- *  Primary   Deep Navy   #082B5C
- *  Secondary Deep Teal   #00706F
- *  Accent    Exit Orange #F45B16
- *  Background Soft White #F7F8F5
- *  Neutral   Slate Grey  #46515B
- *
- * Photography sourced from Wikimedia Commons (freely licensed, public domain
- * or CC-BY/CC-BY-SA). Swap the IMG map below for the client's own photography
- * when it's available — every <img> in this file pulls from that one map.
- * Stat labels and testimonials are marked PLACEHOLDER — replace with the
- * client's real figures and real customer reviews before launch.
- */
-
-const COLORS = {
-  primary: "#082B5C",
-  secondary: "#00706F",
-  accent: "#F45B16",
-  bg: "#F7F8F5",
-  neutral: "#46515B",
-};
+import { SERVICES_DATA } from "./data/servicesData";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
 
 const WIKI = "https://commons.wikimedia.org/wiki/Special:FilePath/";
 const IMG = {
@@ -79,15 +52,16 @@ const IMG = {
   blogRodent: WIKI + "House_mouse.jpg",
 };
 
-const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Our Services", href: "#services" },
-  { label: "Common Pests", href: "#pests" },
-  { label: "Service Areas", href: "#areas" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact", href: "#contact" },
-];
+const COLORS = {
+  primary: "#082B5C",
+  secondary: "#00706F",
+  accent: "#F45B16",
+  bg: "#F7F8F5",
+  neutral: "#46515B",
+};
+
+// SERVICES is now sourced from data/servicesData.js so each card links to its own page
+const SERVICES = SERVICES_DATA;
 
 const COMMON_PESTS = [
   { name: "Ants", icon: Bug, img: IMG.ants },
@@ -99,25 +73,6 @@ const COMMON_PESTS = [
   { name: "Termites", icon: Bug, img: IMG.termite },
   { name: "Wildlife", icon: Bird, img: IMG.wildlife },
   { name: "& More", icon: ArrowRight },
-];
-
-const SERVICES = [
-  { name: "Ant Extermination", blurb: "Targeted treatments that clear out ant colonies and seal the entry points they keep coming back through.", img: IMG.ants },
-  { name: "Bed Bug Extermination", blurb: "Heat and chemical treatment options that eliminate bed bugs at every life stage with minimal disruption.", img: IMG.bedbug },
-  { name: "Cockroach Extermination", blurb: "Safe, eco-friendly treatments that eliminate cockroach infestations at the source, not just the surface.", img: IMG.cockroach },
-  { name: "Flea & Mite Extermination", blurb: "Full-property treatment plans that break the flea and mite life cycle in your home and yard.",img:flea },
-  { name: "Hornet & Wasp Extermination", blurb: "Safe removal of hornet and wasp nests from walls, roofs, and outdoor areas to protect your family from stings.", img: IMG.wasp },
-  { name: "Rodent Extermination", blurb: "Humane trapping, exclusion, and prevention that gets rid of rats and mice for good.", img: IMG.rodent },
-  { name: "Spider Extermination", blurb: "Treatment and prevention plans that clear spiders from indoor and outdoor spaces.", img: IMG.spider },
-  { name: "Bat Extermination", blurb: "Safe, humane bat removal with entry-point sealing so they don't return.", img: IMG.bat },
-  { name: "Bee Extermination", blurb: "Careful removal of bee nests and colonies with a focus on safety for your property and family.", img: IMG.bee },
-  { name: "Bug & Insect Extermination", blurb: "General insect control for the everyday bugs that make themselves at home in yours.", img: bugandinsect },
-  { name: "General Pest Extermination", blurb: "Comprehensive pest control for homes and businesses, tailored to whatever is causing the problem." ,img: bug},
-  { name: "General Wildlife Removal", blurb: "Humane trapping and relocation for raccoons, squirrels, and other nuisance wildlife, with cleanup after.", img: IMG.wildlife },
-  { name: "Home Inspection", blurb: "Thorough inspections that detect pest activity, identify entry points, and assess infestation severity.", img: home },
-  { name: "Mosquito Extermination", blurb: "Yard and property treatments that cut down mosquito populations so you can actually use your outdoor space.", img: IMG.mosquito },
-  { name: "Termite Extermination", blurb: "Effective termite treatment that stops colonies before they compromise your property.", img: IMG.termite },
-  { name: "Termite Inspection", blurb: "Detailed inspections that catch termite activity early, before it turns into costly structural damage." ,img: termite},
 ];
 
 const WHY_CHOOSE_US = [
@@ -142,32 +97,7 @@ const WHY_CHOOSE_US = [
     text: "With full certification, insurance, and a growing base of happy clients, we deliver reliable service you can count on, every time.",
   },
 ];
-/* Floating WhatsApp button — fixed bottom-right, opens a chat with the business number */
-function WhatsAppFloatButton() {
-  return (
-    <a
-      href={WHATSAPP_HREF}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="Chat with us on WhatsApp"
-      className="whatsapp-float fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-xl"
-      style={{ backgroundColor: "#25D366" }}
-    >
-      <span className="whatsapp-pulse" />
-      <svg
-        viewBox="0 0 448 512"
-        width="28"
-        height="28"
-        fill="#ffffff"
-        aria-hidden="true"
-        style={{ position: "relative", zIndex: 1 }}
-      >
-        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-      </svg>
-    </a>
-  );
-}
+
 const TESTIMONIALS = [
   {
     name: "Priya Sharma",
@@ -195,11 +125,7 @@ const PROCESS_STEPS = [
   { num: "03", title: "Treat", icon: SprayCan, text: "We use safe and effective methods to eliminate pests." },
   { num: "04", title: "Prevent", icon: ShieldCheck, text: "We provide long-term solutions and ongoing monitoring." },
 ];
-/* WhatsApp contact number in international format, no spaces/symbols, used for the wa.me link */
-const WHATSAPP_NUMBER = "17788586004";
-const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hi! I'd like to get a free quote for pest control."
-)}`;
+
 const SERVICE_ZONES = [
   {
     key: "primary",
@@ -288,8 +214,6 @@ const FAQS = [
 
 const PHONE = "+1 (778) 858-6004";
 const PHONE_HREF = "tel:+17788586004";
-const EMAIL = "info@pestexit-ontario.com";
-// const ADDRESS = "Brampton, Ontario, Canada L6P 1Y7";
 
 /* ---------------------------------------------------------------------- */
 /* Scroll-reveal system                                                    */
@@ -365,9 +289,7 @@ function SectionEyebrow({ children }) {
 }
 
 export default function BSPestControlSite() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [openZone, setOpenZone] = useState(null);
   const [formData, setFormData] = useState({
@@ -381,15 +303,8 @@ export default function BSPestControlSite() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    // Trigger the hero's one-time entrance sequence shortly after mount.
     const t = setTimeout(() => setHeroLoaded(true), 60);
     return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleChange = (e) => {
@@ -401,7 +316,6 @@ export default function BSPestControlSite() {
     setSubmitted(true);
   };
 
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
   const toggleZone = useCallback((idx) => {
     setOpenZone((prev) => (prev === idx ? null : idx));
   }, []);
@@ -444,16 +358,11 @@ export default function BSPestControlSite() {
           from { opacity: 0; transform: translateY(-6px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes menuDrop {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
 
         .hero-bg { animation: heroFadeIn 1.4s cubic-bezier(.16,1,.3,1) both; }
         .hero-step { opacity: 0; animation: heroFadeUp .8s cubic-bezier(.16,1,.3,1) both; }
         .hero-card { opacity: 0; animation: cardSlideIn .9s cubic-bezier(.16,1,.3,1) both; }
         .faq-answer { animation: faqOpen .3s ease both; }
-        .menu-drop { animation: menuDrop .25s ease both; }
         .float-badge { animation: floatY 3.5s ease-in-out infinite; }
 
         .nav-link { position: relative; }
@@ -479,7 +388,6 @@ export default function BSPestControlSite() {
         .pest-tile img, .pest-tile .pest-icon-wrap { transition: box-shadow .3s ease, transform .3s ease; }
         .pest-tile:hover img, .pest-tile:hover .pest-icon-wrap { box-shadow: 0 10px 22px -8px rgba(8,43,92,0.35); }
 
-        /* Service zone accordion cards — expand on hover (mouse), expand on tap/click (touch) */
         .zone-card {
           border: 1px solid #e6e9ec;
           transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
@@ -519,114 +427,40 @@ export default function BSPestControlSite() {
           transform: translateY(-2px);
         }
 
+        .whatsapp-float { transition: transform .25s ease, box-shadow .25s ease; }
+        .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 14px 30px rgba(37,211,102,0.45); }
+        .whatsapp-pulse {
+          position: absolute; inset: 0; border-radius: 9999px;
+          background: #25D366; opacity: .55;
+          animation: waPulse 1.8s ease-out infinite;
+          z-index: 0;
+        }
+        @keyframes waPulse {
+          0% { transform: scale(1); opacity: .55; }
+          100% { transform: scale(1.55); opacity: 0; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .reveal, .hero-bg, .hero-step, .hero-card, .faq-answer, .menu-drop, .float-badge {
+          .reveal, .hero-bg, .hero-step, .hero-card, .faq-answer, .float-badge {
             animation: none !important;
             transition: none !important;
             opacity: 1 !important;
             transform: none !important;
           }
           .zone-details { transition: none !important; }
+          .whatsapp-pulse { display: none; }
         }
       `}</style>
 
-      {/* Top bar */}
-      <div style={{ backgroundColor: COLORS.primary }} className="text-white text-xs">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-          <p className="hidden sm:block">Serving Homes & Businesses Across Southwestern and Southern Ontario</p>
-          <div className="flex items-center gap-4">
-            <a href={`mailto:${EMAIL}`} className="flex items-center gap-1 hover:text-orange-300 transition-colors">
-              <Mail size={14} /> {EMAIL}
-            </a>
-            <a href={PHONE_HREF} className="flex items-center gap-1 hover:text-orange-300 transition-colors">
-              <Phone size={14} /> {PHONE}
-            </a>
-            <div className="hidden md:flex items-center gap-2">
-              <Facebook size={14} className="hover:text-orange-300 cursor-pointer transition-colors" />
-              <Instagram size={14} className="hover:text-orange-300 cursor-pointer transition-colors" />
-              <Linkedin size={14} className="hover:text-orange-300 cursor-pointer transition-colors" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Header */}
-      <header
-        className={`sticky top-0 z-40 bg-white transition-shadow duration-300 ${
-          scrolled ? "shadow-md" : "shadow-sm"
-        }`}
-      >
-        <div
-          className={`max-w-7xl mx-auto px-4 flex items-center justify-between transition-all duration-300 ${
-            scrolled ? "py-2" : "py-3"
-          }`}
-        >
-          <a href="#home" className="flex items-center gap-2">
-            <div
-              className="w-25 h-20 rounded-md flex items-center justify-center text-white font-bold text-lg font-display"
-
-            >
-            <img
-  src={logo}
-  alt="Logo"
-  className="h-15 w-auto object-contain sm:h-11 md:h-12 lg:h-19"
-/>
-            </div>
-            <span className="font-bold text-lg font-display" style={{ color: COLORS.primary }}>
-              PESTEXIT 
-            </span>
-          </a>
-
-          <nav className="hidden lg:flex items-center gap-7">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="nav-link text-sm font-medium hover:opacity-70 transition-opacity"
-                style={{ color: COLORS.primary }}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
-            <Button variant="accent">
-              Get a Free Quote <ArrowRight size={16} />
-            </Button>
-          </div>
-
-          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-            {menuOpen ? <X style={{ color: COLORS.primary }} /> : <Menu style={{ color: COLORS.primary }} />}
-          </button>
-        </div>
-
-        {menuOpen && (
-          <div className="menu-drop lg:hidden bg-white border-t px-4 py-4 flex flex-col gap-3">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium"
-                style={{ color: COLORS.primary }}
-                onClick={closeMenu}
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button variant="accent" className="w-full mt-2">
-              Get a Free Quote
-            </Button>
-          </div>
-        )}
-      </header>
+      {/* Shared Navbar (includes top contact bar + mobile menu) */}
+      <Navbar />
 
       {/* Hero */}
       <section id="home" className="relative overflow-hidden">
         <div className="absolute inset-0 hero-bg">
           <img
             src={IMG.hero}
-            alt="PESTEXIT  technician treating a home"
+            alt="PESTEXIT technician treating a home"
             className="w-full h-full object-cover"
           />
           <div
@@ -681,9 +515,11 @@ export default function BSPestControlSite() {
               className="hero-step flex flex-wrap gap-4"
               style={{ animationDelay: heroLoaded ? "0.52s" : "999s" }}
             >
-              <Button variant="accent">
-                Get a Free Quote <ArrowRight size={16} />
-              </Button>
+              <Link to="/contact">
+                <Button variant="accent">
+                  Get a Free Quote <ArrowRight size={16} />
+                </Button>
+              </Link>
               <a href={PHONE_HREF}>
                 <Button variant="outline">
                   <Phone size={16} /> Call {PHONE}
@@ -752,7 +588,7 @@ export default function BSPestControlSite() {
                 >
                   <option value="">Service Type *</option>
                   {SERVICES.map((s) => (
-                    <option key={s.name} value={s.name}>
+                    <option key={s.slug} value={s.name}>
                       {s.name}
                     </option>
                   ))}
@@ -831,7 +667,7 @@ export default function BSPestControlSite() {
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
           <Reveal className="relative">
             <div className="img-zoom rounded-xl h-80 shadow-lg">
-              <img src={IMG.house} alt="A home protected by PESTEXIT " className="w-full h-full object-cover" />
+              <img src={IMG.house} alt="A home protected by PESTEXIT" className="w-full h-full object-cover" />
             </div>
             <div
               className="absolute -bottom-6 left-6 rounded-lg px-5 py-4 text-white shadow-lg"
@@ -843,12 +679,12 @@ export default function BSPestControlSite() {
           </Reveal>
 
           <Reveal delay={120}>
-            <SectionEyebrow>About PESTEXIT </SectionEyebrow>
+            <SectionEyebrow>About PESTEXIT</SectionEyebrow>
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: COLORS.primary }}>
-              Your Local Pest Control Partner 
+              Your Local Pest Control Partner
             </h2>
             <p className="mb-6 text-sm leading-relaxed">
-              At PESTEXIT , we're committed to protecting your home and business from unwanted pests with
+              At PESTEXIT, we're committed to protecting your home and business from unwanted pests with
               safe, effective, and affordable solutions. With years of hands-on experience, we specialize in
               removing bed bugs, ants, mice, rats, silverfish, spiders, wasps, cockroaches, and more.
             </p>
@@ -867,9 +703,11 @@ export default function BSPestControlSite() {
               ))}
             </div>
 
-            <Button variant="navy">
-              Learn More About Us <ArrowRight size={16} />
-            </Button>
+            <Link to="/about">
+              <Button variant="navy">
+                Learn More About Us <ArrowRight size={16} />
+              </Button>
+            </Link>
           </Reveal>
         </div>
       </section>
@@ -887,45 +725,53 @@ export default function BSPestControlSite() {
                 We provide customized pest management services for homes, businesses, and industrial properties.
               </p>
             </div>
-            <Button variant="navy">View All Services</Button>
+            <Link to="/services/ant-extermination">
+              <Button variant="navy">View All Services</Button>
+            </Link>
           </Reveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {SERVICES.map((service, i) => (
               <Reveal
-                key={service.name}
+                key={service.slug}
                 delay={(i % 4) * 70}
                 className="lift-card bg-white rounded-xl overflow-hidden shadow-sm"
               >
-                {service.img ? (
-                  <div className="img-zoom h-48">
-                    <img src={service.img} alt={service.name} className="w-full h-full object-cover" loading="lazy" />
+                <Link to={`/services/${service.slug}`} className="block">
+                  {service.img ? (
+                    <div className="img-zoom h-48">
+                      <img
+                        src={service.img}
+                        alt={service.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-28 flex items-center justify-center" style={{ backgroundColor: "#eef1f0" }}>
+                      <Bug size={30} style={{ color: COLORS.secondary }} className="opacity-60" />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="font-bold mb-2 text-base" style={{ color: COLORS.primary }}>
+                      {service.name}
+                    </h3>
+                    <p className="text-sm leading-relaxed mb-3">{service.blurb}</p>
+                    <span
+                      className="text-xs font-semibold inline-flex items-center gap-1"
+                      style={{ color: COLORS.accent }}
+                    >
+                      Learn More <ArrowRight size={12} />
+                    </span>
                   </div>
-                ) : (
-                  <div className="h-28 flex items-center justify-center" style={{ backgroundColor: "#eef1f0" }}>
-                    <Bug size={30} style={{ color: COLORS.secondary }} className="opacity-60" />
-                  </div>
-                )}
-                <div className="p-6">
-                  <h3 className="font-bold mb-2 text-base" style={{ color: COLORS.primary }}>
-                    {service.name}
-                  </h3>
-                  <p className="text-sm leading-relaxed mb-3">{service.blurb}</p>
-                  <a
-                    href="#contact"
-                    className="text-xs font-semibold inline-flex items-center gap-1"
-                    style={{ color: COLORS.accent }}
-                  >
-                    Learn More <ArrowRight size={12} />
-                  </a>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats strip — PLACEHOLDER figures, replace with real numbers */}
+      {/* Stats strip */}
       <section style={{ backgroundColor: COLORS.primary }} className="py-10">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
           {[
@@ -951,7 +797,7 @@ export default function BSPestControlSite() {
           <Reveal className="img-zoom rounded-xl h-80 shadow-lg">
             <img
               src={IMG.wildlife}
-              alt="Humane wildlife removal by PESTEXIT "
+              alt="Humane wildlife removal by PESTEXIT"
               className="w-full h-full object-cover"
             />
           </Reveal>
@@ -963,7 +809,7 @@ export default function BSPestControlSite() {
             </h2>
             <p className="text-sm mb-6 leading-relaxed">
               When it comes to protecting your home and family, you need more than just pest control — you need
-              peace of mind. At PESTEXIT , we combine eco-conscious methods with expert service to deliver
+              peace of mind. At PESTEXIT, we combine eco-conscious methods with expert service to deliver
               safe, reliable, and long-lasting solutions.
             </p>
 
@@ -1034,16 +880,18 @@ export default function BSPestControlSite() {
           <Reveal className="text-center max-w-2xl mx-auto mb-12">
             <SectionEyebrow>Service Areas</SectionEyebrow>
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: COLORS.primary }}>
-              Proudly Serving These Locations <span style={{ color: COLORS.accent }}> and Surrounding Communities</span>
+              Proudly Serving These Locations{" "}
+              <span style={{ color: COLORS.accent }}> and Surrounding Communities</span>
             </h2>
-           
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6 items-start">
             {SERVICE_ZONES.map((zone, i) => (
               <Reveal key={zone.key} delay={i * 100}>
                 <div
-                  className={`zone-card ${openZone === i ? "is-open" : ""} bg-white rounded-xl p-6 cursor-pointer shadow-sm h-full`}
+                  className={`zone-card ${
+                    openZone === i ? "is-open" : ""
+                  } bg-white rounded-xl p-6 cursor-pointer shadow-sm h-full`}
                   onClick={() => toggleZone(i)}
                   role="button"
                   tabIndex={0}
@@ -1076,7 +924,7 @@ export default function BSPestControlSite() {
                       className="zone-toggle-icon w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                       style={{ backgroundColor: COLORS.secondary }}
                     >
-                      <Plus size={16} className="text-white" />
+                      <span className="text-white font-bold text-lg leading-none">+</span>
                     </span>
                   </div>
 
@@ -1108,57 +956,50 @@ export default function BSPestControlSite() {
               </Reveal>
             ))}
           </div>
-
-          <Reveal delay={300} className="flex justify-center mt-10">
-            {/* <Button variant="navy">
-              Check If We Service Your Area <ArrowRight size={16} />
-            </Button> */}
-          </Reveal>
         </div>
       </section>
 
-     {/* Testimonials */}
-<section className="py-16" style={{ backgroundColor: COLORS.bg }}>
-  <div className="max-w-7xl mx-auto px-4">
-    <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
-      <div>
-        <SectionEyebrow>What Our Clients Say</SectionEyebrow>
-        <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
-          Trusted by Homeowners &amp; Businesses
-        </h2>
-      </div>
-      {/* <Button variant="navy">View All Reviews</Button> */}
-    </Reveal>
-    <div className="grid sm:grid-cols-3 gap-6">
-      {TESTIMONIALS.map((review, i) => (
-        <Reveal key={review.name} delay={i * 100} className="lift-card bg-white rounded-xl p-6 shadow-sm">
-          <div className="flex gap-1 mb-3">
-            {[...Array(5)].map((_, idx) => (
-              <Star key={idx} size={14} fill={COLORS.accent} style={{ color: COLORS.accent }} />
+      {/* Testimonials */}
+      <section className="py-16" style={{ backgroundColor: COLORS.bg }}>
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+              <SectionEyebrow>What Our Clients Say</SectionEyebrow>
+              <h2 className="text-2xl md:text-3xl font-bold" style={{ color: COLORS.primary }}>
+                Trusted by Homeowners &amp; Businesses
+              </h2>
+            </div>
+          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((review, i) => (
+              <Reveal key={review.name} delay={i * 100} className="lift-card bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, idx) => (
+                    <Star key={idx} size={14} fill={COLORS.accent} style={{ color: COLORS.accent }} />
+                  ))}
+                </div>
+                <p className="text-sm italic mb-4">"{review.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    style={{ backgroundColor: COLORS.secondary }}
+                  >
+                    {review.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: COLORS.primary }}>
+                      {review.name}
+                    </p>
+                    <p className="text-xs" style={{ color: COLORS.neutral }}>
+                      {review.location}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
-          <p className="text-sm italic mb-4">"{review.text}"</p>
-          <div className="flex items-center gap-3">
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-              style={{ backgroundColor: COLORS.secondary }}
-            >
-              {review.initials}
-            </div>
-            <div>
-              <p className="text-sm font-semibold" style={{ color: COLORS.primary }}>
-                {review.name}
-              </p>
-              <p className="text-xs" style={{ color: COLORS.neutral }}>
-                {review.location}
-              </p>
-            </div>
-          </div>
-        </Reveal>
-      ))}
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* Blog */}
       <section id="blog" className="py-16 bg-white">
@@ -1171,7 +1012,6 @@ export default function BSPestControlSite() {
               </h2>
               <p className="text-sm mt-2">Stay informed with expert tips and the latest updates.</p>
             </div>
-            {/* <Button variant="navy">View All Articles</Button> */}
           </Reveal>
 
           <div className="grid sm:grid-cols-3 gap-6">
@@ -1185,7 +1025,11 @@ export default function BSPestControlSite() {
                     {post.title}
                   </h4>
                   <p className="text-sm mb-3">{post.excerpt}</p>
-                  <a href="#" className="text-xs font-semibold inline-flex items-center gap-1" style={{ color: COLORS.accent }}>
+                  <a
+                    href="#"
+                    className="text-xs font-semibold inline-flex items-center gap-1"
+                    style={{ color: COLORS.accent }}
+                  >
                     Learn more <ArrowRight size={12} />
                   </a>
                 </div>
@@ -1205,7 +1049,6 @@ export default function BSPestControlSite() {
                 Got Questions? <span style={{ color: COLORS.accent }}>We've Got Answers.</span>
               </h2>
             </div>
-            {/* <Button variant="navy">View All FAQs</Button> */}
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -1257,9 +1100,11 @@ export default function BSPestControlSite() {
             </p>
           </Reveal>
           <Reveal delay={120} className="flex flex-wrap gap-4">
-            <Button variant="accent">
-              Get a Free Quote <ArrowRight size={16} />
-            </Button>
+            <Link to="/contact">
+              <Button variant="accent">
+                Get a Free Quote <ArrowRight size={16} />
+              </Button>
+            </Link>
             <a href={PHONE_HREF}>
               <Button variant="outline">
                 <Phone size={16} /> Call {PHONE}
@@ -1269,81 +1114,9 @@ export default function BSPestControlSite() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer id="contact" className="text-white" style={{ backgroundColor: "#061f43" }}>
-        <div className="max-w-7xl mx-auto px-4 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-25 h-20 rounded-md flex items-center justify-center font-bold font-display"
-               
-              >
-             <img
-  src={logo}
-  alt="PESTEXIT Logo"
-  className="h-15 w-auto object-contain sm:h-11 md:h-12 lg:h-19"
-/>
-              </div>
-              <span className="font-bold text-lg font-display">PESTEXIT </span>
-            </div>
-            <p className="text-sm text-white/70 mb-4">
-              Expert pest control services for homes &amp; businesses across Southwestern and Southern Ontario.
-            </p>
-            <div className="flex gap-3">
-              <Facebook size={16} className="hover:text-orange-300 cursor-pointer transition-colors" />
-              <Instagram size={16} className="hover:text-orange-300 cursor-pointer transition-colors" />
-              <Linkedin size={16} className="hover:text-orange-300 cursor-pointer transition-colors" />
-            </div>
-          </div>
+      {/* Shared Footer */}
+      <Footer />
 
-          <div>
-            <h5 className="font-semibold mb-4">Quick Links</h5>
-            <ul className="space-y-2 text-sm text-white/70">
-              {NAV_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="hover:text-orange-300 transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-semibold mb-4">Our Services</h5>
-            <ul className="space-y-2 text-sm text-white/70">
-              {SERVICES.slice(0, 6).map((s) => (
-                <li key={s.name}>
-                  <a href="#services" className="hover:text-orange-300 transition-colors">
-                    {s.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-semibold mb-4">Contact Us</h5>
-            <ul className="space-y-3 text-sm text-white/70">
-              <li className="flex items-center gap-2">
-                <Phone size={14} /> {PHONE}
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} /> {EMAIL}
-              </li>
-              {/* <li className="flex items-start gap-2">
-                <MapPin size={14} className="mt-0.5 shrink-0" /> {ADDRESS}
-              </li> */}
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-white/10 py-5">
-          <p className="text-xs text-center text-white/60">
-            © {new Date().getFullYear()} PESTEXIT . All Rights Reserved.
-          </p>
-        </div>
-      </footer>
       {/* Floating WhatsApp button — visible on every section */}
       <WhatsAppFloatButton />
     </div>
