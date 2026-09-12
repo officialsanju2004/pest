@@ -30,7 +30,9 @@ import { SERVICES_DATA } from "./data/servicesData";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
+
 import { BLOG_POSTS } from "./data/blogData";
+import { submitEnquiry } from "./api/enquiryApi";
 const WIKI = "https://commons.wikimedia.org/wiki/Special:FilePath/";
 const IMG = {
   hero: WIKI + "A_day_in_the_life-_Pest_Management_Journeyman.jpeg",
@@ -293,11 +295,37 @@ export default function BSPestControlSite() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+const [submitting, setSubmitting] = useState(false);
+const [formError, setFormError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitting(true);
+  setFormError("");
+  try {
+    await submitEnquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.service || "General Enquiry",
+      message: formData.message,
+      address: formData.address,
+    });
     setSubmitted(true);
-  };
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      address: "",
+      message: "",
+    });
+  } catch (err) {
+    setFormError(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   const toggleZone = useCallback((idx) => {
     setOpenZone((prev) => (prev === idx ? null : idx));
@@ -594,13 +622,24 @@ export default function BSPestControlSite() {
                   className="border rounded-md px-3 py-2 text-sm sm:col-span-2 focus:outline-none focus:ring-2 transition-shadow"
                   style={{ borderColor: "#d8dce0" }}
                 />
-                <button
-                  type="submit"
-                  className="sm:col-span-2 rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-95"
-                  style={{ backgroundColor: COLORS.accent }}
-                >
-                  Submit Request <ArrowRight size={16} />
-                </button>
+               {formError && (
+  <div
+    className="sm:col-span-2 rounded-md px-3 py-2 text-xs"
+    style={{ backgroundColor: "#fdecea", color: "#b3261e" }}
+  >
+    {formError}
+  </div>
+)}
+
+<button
+  type="submit"
+  disabled={submitting}
+  className="sm:col-span-2 rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
+  style={{ backgroundColor: COLORS.accent }}
+>
+  {submitting ? "Sending..." : "Submit Request"}
+  {!submitting && <ArrowRight size={16} />}
+</button>
                 <p className="sm:col-span-2 text-xs text-center" style={{ color: COLORS.neutral }}>
                   Your information is safe with us.
                 </p>

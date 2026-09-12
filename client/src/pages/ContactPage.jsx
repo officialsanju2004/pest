@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Phone, Send, CheckCircle2, MapPin } from "lucide-react";
+import { Mail, Phone, Send, CheckCircle2, MapPin, Loader2, AlertCircle } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsAppFloatButton from "../components/WhatsAppFloatButton";
 import { SERVICES_DATA } from "../data/servicesData";
+import { submitEnquiry } from "../api/enquiryApi";
 
 const COLORS = {
   primary: "#082B5C",
@@ -26,6 +27,8 @@ export default function ContactPage() {
     agree: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -34,11 +37,36 @@ export default function ContactPage() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+    if (error) setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      await submitEnquiry({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        subject: form.subject,
+        message: form.message,
+      });
+      setSubmitted(true);
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        subject: "",
+        message: "",
+        agree: false,
+      });
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -107,7 +135,16 @@ export default function ContactPage() {
             <div className="text-center py-10">
               <CheckCircle2 size={56} style={{ color: COLORS.secondary }} className="mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2" style={{ color: COLORS.primary }}>Thank you!</h3>
-              <p className="text-sm">Your message has been received. Our team will reach out to you shortly.</p>
+              <p className="text-sm mb-6">
+                Your message has been received. Our team will reach out to you shortly.
+              </p>
+              <button
+                onClick={() => setSubmitted(false)}
+                className="text-sm font-semibold underline"
+                style={{ color: COLORS.accent }}
+              >
+                Send another message
+              </button>
             </div>
           ) : (
             <>
@@ -182,12 +219,31 @@ export default function ContactPage() {
                   <span>I agree to be contacted regarding my enquiry and accept the privacy policy.</span>
                 </label>
 
+                {error && (
+                  <div
+                    className="sm:col-span-2 flex items-start gap-2 rounded-md px-3 py-2 text-sm"
+                    style={{ backgroundColor: "#fdecea", color: "#b3261e" }}
+                  >
+                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="sm:col-span-2 rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-95"
+                  disabled={loading}
+                  className="sm:col-span-2 rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   style={{ backgroundColor: COLORS.accent }}
                 >
-                  Submit <Send size={16} />
+                  {loading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Sending...
+                    </>
+                  ) : (
+                    <>
+                      Submit <Send size={16} />
+                    </>
+                  )}
                 </button>
               </form>
             </>

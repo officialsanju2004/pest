@@ -19,6 +19,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "aos": "^2.3.4",
     "axios": "^1.9.0",
+    "dotenv": "^17.4.2",
     "flowbite-react": "^0.11.7",
     "framer-motion": "^12.12.1",
     "lucide-react": "^0.547.0",
