@@ -22,7 +22,17 @@ app.get("/", (req, res) => {
 // ✅ Routes
 app.use("/web/api/enquiry", enquiryRoutes);
 
-// ❌ No app.listen() — Vercel handles it
+// On Vercel, the serverless runtime imports `app` directly and handles
+// requests itself, so app.listen() must NOT be called there.
+// For local development (e.g. `npm start`), we still need to listen on
+// a port or the server never actually starts.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 8000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
 // ❌ No mongoose.connect() — MongoDB removed
 
 module.exports = app;

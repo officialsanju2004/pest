@@ -2,10 +2,10 @@ const { sendEnquiryEmail } = require("../Mailer/mailer");
 
 exports.enquiryInsert = async (req, res) => {
   try {
-    const { name, email, phone, subject, message } = req.body;
+    const { name, email, phone, service,address, message } = req.body;
 
     // 1) Validate
-    if (!name || !email || !phone || !message) {
+    if (!name || !email || !phone || !service || !address || !message) {
       return res.status(400).json({
         success: false,
         message: "Please fill all required fields.",
@@ -13,7 +13,7 @@ exports.enquiryInsert = async (req, res) => {
     }
 
     // 2) Send email to owner
-    await sendEnquiryEmail({ name, email, phone, subject, message });
+    await sendEnquiryEmail({ name, email, phone, service,address, message });
 
     // 3) Respond
     return res.status(201).json({

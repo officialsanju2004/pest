@@ -22,7 +22,8 @@ export default function ContactPage() {
     name: "",
     phone: "",
     email: "",
-    subject: "",
+    service: "",
+    address: "",
     message: "",
     agree: false,
   });
@@ -50,7 +51,8 @@ export default function ContactPage() {
         name: form.name,
         email: form.email,
         phone: form.phone,
-        subject: form.subject,
+        service: form.service,
+        address: form.address,
         message: form.message,
       });
       setSubmitted(true);
@@ -58,7 +60,8 @@ export default function ContactPage() {
         name: "",
         phone: "",
         email: "",
-        subject: "",
+        service: "",
+        address: "",
         message: "",
         agree: false,
       });
@@ -183,19 +186,28 @@ export default function ContactPage() {
                   style={{ borderColor: "#d8dce0" }}
                 />
                 <select
-                  name="subject"
-                  value={form.subject}
+                  name="service"
+                  value={form.service}
                   onChange={handleChange}
                   required
                   className="border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 sm:col-span-2"
                   style={{ borderColor: "#d8dce0" }}
                 >
-                  <option value="">Select a Subject *</option>
+                  <option value="">Select a Service *</option>
                   {SERVICES_DATA.map((s) => (
                     <option key={s.slug} value={s.name}>{s.name}</option>
                   ))}
                   <option value="General Enquiry">General Enquiry</option>
                 </select>
+                  <input
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="Your Address / City *"
+                  className="border rounded-md px-3 py-2 text-sm sm:col-span-2 focus:outline-none focus:ring-2 transition-shadow"
+                  style={{ borderColor: "#d8dce0" }}
+                  required
+                />
                 <textarea
                   name="message"
                   value={form.message}

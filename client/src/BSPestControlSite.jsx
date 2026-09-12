@@ -307,7 +307,7 @@ const handleSubmit = async (e) => {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      subject: formData.service || "General Enquiry",
+      service: formData.service || "General Enquiry",
       message: formData.message,
       address: formData.address,
     });

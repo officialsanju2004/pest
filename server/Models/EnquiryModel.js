@@ -13,13 +13,18 @@ let userEnquirySchema = mongoose.Schema({
     type:String,
     required: true,
   },
-   subject: {
+   service: {
+    type:String,
+    required: true,
+  },
+  address: {
     type:String,
     required: true,
   },
   message: {
     type:String,
-   
+    required: true,
+  
   },
 });
 
