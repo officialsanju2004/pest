@@ -286,6 +286,7 @@ export default function BSPestControlSite() {
     service: "",
     address: "",
     message: "",
+     agree: false,
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -295,53 +296,64 @@ export default function BSPestControlSite() {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { name, value, type, checked } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: type === "checkbox" ? checked : value,
+  });
+
+  setError("");
+  setFormError("");
+};
 const [submitting, setSubmitting] = useState(false);
 const [formError, setFormError] = useState("");
 
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+  e.preventDefault();
+  setLoading(true);
+  setError("");
+  setFormError("");
 
-    try {
-      await submitEnquiry({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        service: form.service,
-        address: form.address,
-        message: form.message,
+  try {
+    await submitEnquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      address: formData.address,
+      message: formData.message,
+    });
+
+    // Google Ads conversion
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        send_to: "AW-18428677594/B1EBCPHc0fccENqbvdNE",
+        value: 1.0,
+        currency: "CAD",
       });
 
-      // --- GOOGLE ADS CONVERSION START ---
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-18428677594/B1EBCPHc0fccENqbvdNE',
-          'value': 1.0,
-          'currency': 'CAD'
-        });
-        console.log("Google Ads Conversion Fired");
-      }
-      // --- GOOGLE ADS CONVERSION END ---
-
-      setSubmitted(true);
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        service: "",
-        address: "",
-        message: "",
-        agree: false,
-      });
-    } catch (err) {
-      setError(err.message || "Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      console.log("Google Ads Conversion Fired");
     }
-  };
+
+    setSubmitted(true);
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      address: "",
+      message: "",
+      agree: false,
+    });
+  } catch (err) {
+    setError(err.message || "Something went wrong. Please try again.");
+    setFormError(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const toggleZone = useCallback((idx) => {
     setOpenZone((prev) => (prev === idx ? null : idx));
@@ -646,15 +658,25 @@ const handleSubmit = async (e) => {
     {formError}
   </div>
 )}
-
+ <label className="sm:col-span-2 flex items-start gap-2 text-xs cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="agree"
+                    checked={formData.agree}
+                    onChange={handleChange}
+                    required
+                    className="mt-0.5 accent-orange-500"
+                  />
+                  <span>I agree to be contacted regarding my enquiry and accept the privacy policy.</span>
+                </label>
 <button
   type="submit"
-  disabled={submitting}
+  disabled={loading}
   className="sm:col-span-2 rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
   style={{ backgroundColor: COLORS.accent }}
 >
-  {submitting ? "Sending..." : "Submit Request"}
-  {!submitting && <ArrowRight size={16} />}
+  {loading ? "Sending..." : "Submit Request"}
+  {!loading && <ArrowRight size={16} />}
 </button>
                 <p className="sm:col-span-2 text-xs text-center" style={{ color: COLORS.neutral }}>
                   Your information is safe with us.
