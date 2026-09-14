@@ -81,6 +81,9 @@ export default function Footer() {
         <p className="text-xs text-center text-white/60">
           © {new Date().getFullYear()} PESTEXIT. All Rights Reserved.
         </p>
+         <p className="text-xs text-center text-white/60">
+         Developed and Managed by Growth Flow Media.
+        </p>
       </div>
     </footer>
   );
