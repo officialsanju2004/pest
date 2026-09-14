@@ -299,33 +299,47 @@ const [submitting, setSubmitting] = useState(false);
 const [formError, setFormError] = useState("");
 
 const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSubmitting(true);
-  setFormError("");
-  try {
-    await submitEnquiry({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      service: formData.service || "General Enquiry",
-      message: formData.message,
-      address: formData.address,
-    });
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      address: "",
-      message: "",
-    });
-  } catch (err) {
-    setFormError(err.message || "Something went wrong. Please try again.");
-  } finally {
-    setSubmitting(false);
-  }
-};
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      await submitEnquiry({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+        address: form.address,
+        message: form.message,
+      });
+
+      // --- GOOGLE ADS CONVERSION START ---
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-18428677594/B1EBCPHc0fccENqbvdNE',
+          'value': 1.0,
+          'currency': 'CAD'
+        });
+        console.log("Google Ads Conversion Fired");
+      }
+      // --- GOOGLE ADS CONVERSION END ---
+
+      setSubmitted(true);
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        service: "",
+        address: "",
+        message: "",
+        agree: false,
+      });
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleZone = useCallback((idx) => {
     setOpenZone((prev) => (prev === idx ? null : idx));

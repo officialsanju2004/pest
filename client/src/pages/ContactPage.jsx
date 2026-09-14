@@ -55,6 +55,18 @@ export default function ContactPage() {
         address: form.address,
         message: form.message,
       });
+
+      // --- GOOGLE ADS CONVERSION START ---
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-18428677594/B1EBCPHc0fccENqbvdNE',
+          'value': 1.0,
+          'currency': 'CAD'
+        });
+        console.log("Google Ads Conversion Fired");
+      }
+      // --- GOOGLE ADS CONVERSION END ---
+
       setSubmitted(true);
       setForm({
         name: "",
