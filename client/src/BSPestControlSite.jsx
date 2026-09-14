@@ -277,6 +277,8 @@ export default function BSPestControlSite() {
   const [openFaq, setOpenFaq] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [openZone, setOpenZone] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error,setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
