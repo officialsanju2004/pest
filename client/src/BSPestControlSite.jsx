@@ -197,8 +197,8 @@ const FAQS = [
   },
 ];
 
-const PHONE = "+1 (778) 858-6004";
-const PHONE_HREF = "tel:+17788586004";
+const PHONE = "+1 (226) 577-2142";
+const PHONE_HREF = "tel:+12265772142";
 
 /* ---------------------------------------------------------------------- */
 /* Scroll-reveal system                                                    */

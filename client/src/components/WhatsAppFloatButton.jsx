@@ -1,6 +1,6 @@
 import React from "react";
 
-const WHATSAPP_NUMBER = "17788586004";
+const WHATSAPP_NUMBER = "12265772142";
 export const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi! I'd like to get a free quote for pest control."
 )}`;

@@ -6,7 +6,7 @@ import logo from "../../images/logo.jpeg";
 import { SERVICES_DATA } from "../data/servicesData";
 
 const COLORS = { primary: "#082B5C" };
-const PHONE = "+1 (778) 858-6004";
+const PHONE = "+1 (226) 577-2142";
 const EMAIL = "info@pestexit-ontario.com";
 
 const NAV_LINKS = [

@@ -13,8 +13,8 @@ const COLORS = {
   bg: "#F7F8F5",
   neutral: "#46515B",
 };
-const PHONE = "+1 (778) 858-6004";
-const PHONE_HREF = "tel:+17788586004";
+const PHONE = "+1 (226) 577-2142";
+const PHONE_HREF = "tel:+12265772142";
 const EMAIL = "info@pestexit-ontario.com";
 
 export default function ContactPage() {
